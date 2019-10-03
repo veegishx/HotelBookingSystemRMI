@@ -1,0 +1,8 @@
+import java.rmi.*;
+
+public class HotelServer {
+	public static void main(String args[])throws Exception{
+	    Remote roomManagerImpl = new RoomManagerImpl();
+	    Naming.rebind("rmi://localhost:1099/bookings", roomManagerImpl);
+	}
+}

@@ -1,0 +1,39 @@
+package Objects;
+
+import java.io.Serializable;
+
+public class Room implements Serializable {
+    int roomType;
+    int roomPrice;
+    String roomDescription;
+
+    public Room(int roomType, int roomPrice, String roomDescription) {
+        roomType = this.roomType;
+        roomPrice = this.roomPrice;
+        roomDescription = this.roomDescription;
+    }
+
+    public int getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(int roomType) {
+        this.roomType = roomType;
+    }
+
+    public int getRoomPrice() {
+        return roomPrice;
+    }
+
+    public void setRoomPrice(int roomPrice) {
+        this.roomPrice = roomPrice;
+    }
+
+    public String getRoomDescription() {
+        return roomDescription;
+    }
+
+    public void setRoomDescription(String roomDescription) {
+        this.roomDescription = roomDescription;
+    }
+}

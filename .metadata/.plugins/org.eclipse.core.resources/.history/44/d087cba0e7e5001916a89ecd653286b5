@@ -1,0 +1,13 @@
+package RoomInterfaces;
+import Objects.Room;
+import Objects.Guest;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
+public interface RoomManager extends Remote {
+    public ArrayList<Room> bookRoom() throws RemoteException;
+    public ArrayList<Room> getRooms()throws RemoteException;
+    public ArrayList<Guest> getGuests() throws RemoteException;
+}

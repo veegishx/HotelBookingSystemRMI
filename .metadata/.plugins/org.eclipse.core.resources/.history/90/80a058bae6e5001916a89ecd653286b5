@@ -1,0 +1,5 @@
+package RoomManagerInterface;
+
+public interface RoomManager {
+
+}

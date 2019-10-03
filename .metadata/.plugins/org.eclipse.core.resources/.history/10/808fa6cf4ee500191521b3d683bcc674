@@ -1,0 +1,14 @@
+package RoomInterfaces;
+import Objects.Room;
+
+import java.rmi.*;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+
+public class RoomManagerImpl extends UnicastRemoteObject implements RoomManager {
+    public RoomManagerImpl() throws RemoteException{}
+
+    public ArrayList<Room> getRooms() throws RemoteException {
+        return null;
+    }
+}

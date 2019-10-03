@@ -1,0 +1,18 @@
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+public class HotelServer {
+	public static void main(String args[])throws Exception{
+	    try {
+	    	Registry roomServiceRegistry = LocateRegistry.createRegistry(1099);
+	    	RoomManagerImpl roomManager = new RoomManagerImpl();
+	    	Naming.rebind("rmi://localhost:1099/hotel_booking", roomManager);
+	    	System.out.print("Server running...");
+	    } catch (RemoteException | MalformedURLException e) {
+	    	e.printStackTrace();
+	    }
+	}
+}
