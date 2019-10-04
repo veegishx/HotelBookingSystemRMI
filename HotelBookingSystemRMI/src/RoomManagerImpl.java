@@ -19,17 +19,18 @@ public class RoomManagerImpl extends UnicastRemoteObject implements RoomManagerI
     public ArrayList<Room> getRooms() throws RemoteException {
     	ArrayList<Room> roomList = new ArrayList<>();
     	try {
-    		Class.forName("com.mysql.jdbc.Driver");  
+    		Class.forName("com.mysql.cj.jdbc.Driver");  
     		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel_booking","root","1234567890");  
     		Statement stmt = con.createStatement();  
     		ResultSet rs = stmt.executeQuery("select * from room");  
     		while(rs.next()) {
-    			Room room = new Room(1, 1, 1, "", false);
+    			Room room = new Room(1, 1, 1, "", false, 1);
     			room.setRoomId(rs.getInt("roomId"));
     			room.setRoomType(rs.getInt("roomType"));
     			room.setRoomPrice(rs.getInt("roomPrice"));
     			room.setRoomDescription(rs.getString("roomDescription"));
     			room.setBookingStatus(rs.getBoolean("roomBookingStatus"));
+    			room.setNumAvailable(rs.getInt("numAvailable"));
     			roomList.add(room);
     		}
     		con.close();  

@@ -7,29 +7,131 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import Objects.Guest;
 import Objects.Room;
 import RoomManagerInterface.RoomManager;
 
 public class HotelClient {
 	public static void main(String[] args) throws MalformedURLException {
+		menu();
+	}
+	
+	public static void menu() throws MalformedURLException {
+		Scanner in = new Scanner(System.in);
+		System.out.println("VBK Hotel Room Booking System v1.0");
+		System.out.println("1. List Available Rooms");
+		System.out.println("2. Book Room");
+		System.out.println("3. List Registered Guests");
+		System.out.println("Enter choice: ");
+		int choice = in.nextInt();
+		switch (choice) {
+		case 1: listAvailableRooms();
+		break;
+		case 2: bookRoom();
+		break;
+		case 3: listRegisteredGuests();
+		break;
+		}	
+	}
+	
+	public static void listAvailableRooms() throws MalformedURLException {
 		//RoomManagerImpl roomManager = null;
+		Scanner in = new Scanner(System.in);
 		try {
 			Registry r = LocateRegistry.getRegistry("127.0.0.1", 1099);
 			RoomManager rm = (RoomManager) Naming.lookup("rmi://localhost:1099/BookingService");
 
 			ArrayList<Room> roomList = rm.getRooms();
 			
+			System.out.println("------------------------------------------------------------------------------------------------------------------");
+			System.out.print("| " + "\t");
+			System.out.print("ID: "  + "\t" + " | ");
+			System.out.print("TYPE: " + "\t" + " | ");
+			System.out.print("PRICE " + "\t" + " | ");
+			System.out.print("DESC " + "\t" + "\t" +  " | ");
+			System.out.print("STATUS " + "\t" + "\t" + " |");
+			System.out.println("AVAILABLE " + "\t" + "\t" + " |");
+			System.out.println("------------------------------------------------------------------------------------------------------------------");
+			
 			for (Room room : roomList) {
-				System.out.println("ID: " + room.getRoomId());
-				System.out.println("TYPE: " + room.getRoomType());
-				System.out.println("PRICE " + room.getRoomPrice());
-				System.out.println("DESC " + room.getRoomDescription());
-				System.out.println("STATUS " + room.getBookingStatus());
+				System.out.print("| " + "\t" );
+				System.out.print(room.getRoomId() + "\t"  + " | " );
+				System.out.print(room.getRoomType() + "\t" + "\t" + " | ");
+				System.out.print(room.getRoomPrice() + "\t" + "\t" + " | ");
+				System.out.print(room.getRoomDescription() + " | ");
+				System.out.print(room.getBookingStatus() + "\t" + "\t" + " | ");
+				System.out.print(room.getNumAvailable() + "\t" + "\t" + " | ");
+				System.out.println();
 			}
 		} catch (RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		System.out.print("Go back? [Y/n]: ");
+		String answer = in.nextLine();
+		if(answer.equalsIgnoreCase("y")) {
+			menu();
+		}
+	}
+	
+	public static void bookRoom() throws MalformedURLException {
+		//RoomManagerImpl roomManager = null;
+		Scanner in = new Scanner(System.in);
+		System.out.print("Option 2 Selected");
+//		try {
+//			Registry r = LocateRegistry.getRegistry("127.0.0.1", 1099);
+//			RoomManager rm = (RoomManager) Naming.lookup("rmi://localhost:1099/BookingService");
+//
+//			ArrayList<Room> roomList = rm.getRooms();
+//			
+//			for (Room room : roomList) {
+//				System.out.println("ID: " + room.getRoomId());
+//				System.out.println("TYPE: " + room.getRoomType());
+//				System.out.println("PRICE " + room.getRoomPrice());
+//				System.out.println("DESC " + room.getRoomDescription());
+//				System.out.println("STATUS " + room.getBookingStatus());
+//			}
+//		} catch (RemoteException | NotBoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		System.out.print("Go back? [Y/n]: ");
+		String answer = in.nextLine();
+		if(answer.equalsIgnoreCase("y")) {
+			menu();
+		}
+		
+	}
+	
+	public static void listRegisteredGuests() throws MalformedURLException {
+		//RoomManagerImpl roomManager = null;
+		Scanner in = new Scanner(System.in);
+		System.out.print("Option 3 Selected");
+//		try {
+//			Registry r = LocateRegistry.getRegistry("127.0.0.1", 1099);
+//			RoomManager rm = (RoomManager) Naming.lookup("rmi://localhost:1099/BookingService");
+//
+//			ArrayList<Room> roomList = rm.getRooms();
+//			
+//			for (Room room : roomList) {
+//				System.out.println("ID: " + room.getRoomId());
+//				System.out.println("TYPE: " + room.getRoomType());
+//				System.out.println("PRICE " + room.getRoomPrice());
+//				System.out.println("DESC " + room.getRoomDescription());
+//				System.out.println("STATUS " + room.getBookingStatus());
+//			}
+//		} catch (RemoteException | NotBoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		System.out.print("Go back? [Y/n]: ");
+		String answer = in.nextLine();
+		if(answer.equalsIgnoreCase("y")) {
+			menu();
 		}
 	}
 }

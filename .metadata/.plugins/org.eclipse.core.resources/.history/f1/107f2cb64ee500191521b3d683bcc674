@@ -1,9 +1,0 @@
-package Objects;
-
-public class Guest {
-	int guestId;
-	String guestFirstName;
-	String guestLastName;
-	String guestRoomId;
-	int guestStayDuration;
-}

@@ -8,16 +8,26 @@ public class Room implements Serializable {
     int roomPrice;
     String roomDescription;
     boolean bookingStatus;
+    int numAvailable;
 
-    public Room(int roomId, int roomType, int roomPrice, String roomDescription, boolean bookingStatus) {
-        roomId = this.roomId;
-    	roomType = this.roomType;
-        roomPrice = this.roomPrice;
-        roomDescription = this.roomDescription;
-        bookingStatus = this.bookingStatus;
+    public Room(int roomId, int roomType, int roomPrice, String roomDescription, boolean bookingStatus, int numAvailable) {
+        this.roomId = roomId;
+    	this.roomType = roomType;
+        this.roomPrice = roomPrice;
+        this.roomDescription = roomDescription;
+        this.bookingStatus = bookingStatus;
+        this.numAvailable = numAvailable;
     }
 
-    public boolean getBookingStatus() {
+    public int getNumAvailable() {
+		return numAvailable;
+	}
+
+	public void setNumAvailable(int numAvailable) {
+		this.numAvailable = numAvailable;
+	}
+
+	public boolean getBookingStatus() {
 		return bookingStatus;
 	}
 
