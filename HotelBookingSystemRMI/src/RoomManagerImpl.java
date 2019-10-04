@@ -13,7 +13,6 @@ public class RoomManagerImpl extends UnicastRemoteObject implements RoomManagerI
 
 	public RoomManagerImpl() throws RemoteException{
 		super();
-		
 	}
 
     public ArrayList<Room> getRooms() throws RemoteException {
@@ -27,7 +26,7 @@ public class RoomManagerImpl extends UnicastRemoteObject implements RoomManagerI
     			Room room = new Room(1, 1, 1, "", false, 1);
     			room.setRoomId(rs.getInt("roomId"));
     			room.setRoomType(rs.getInt("roomType"));
-    			room.setRoomPrice(rs.getInt("roomPrice"));
+    			room.setRoomPrice(rs.getInt("roomPrice")); 
     			room.setRoomDescription(rs.getString("roomDescription"));
     			room.setBookingStatus(rs.getBoolean("roomBookingStatus"));
     			room.setNumAvailable(rs.getInt("numAvailable"));
@@ -45,8 +44,7 @@ public class RoomManagerImpl extends UnicastRemoteObject implements RoomManagerI
 		return null;
 	}
 
-	public ArrayList<Room> bookRoom() throws RemoteException {
+	public static void bookRoom() throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
 	}
 }
