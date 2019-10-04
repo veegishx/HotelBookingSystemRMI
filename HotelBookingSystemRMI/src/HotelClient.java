@@ -44,25 +44,8 @@ public class HotelClient {
 
 			ArrayList<Room> roomList = rm.getRooms();
 			
-			System.out.println("------------------------------------------------------------------------------------------------------------------");
-			System.out.print("| " + "\t");
-			System.out.print("ID: "  + "\t" + " | ");
-			System.out.print("TYPE: " + "\t" + " | ");
-			System.out.print("PRICE " + "\t" + " | ");
-			System.out.print("DESC " + "\t" + "\t" +  " | ");
-			System.out.print("STATUS " + "\t" + "\t" + " |");
-			System.out.println("AVAILABLE " + "\t" + "\t" + " |");
-			System.out.println("------------------------------------------------------------------------------------------------------------------");
-			
 			for (Room room : roomList) {
-				System.out.print("| " + "\t" );
-				System.out.print(room.getRoomId() + "\t"  + " | " );
-				System.out.print(room.getRoomType() + "\t" + "\t" + " | ");
-				System.out.print(room.getRoomPrice() + "\t" + "\t" + " | ");
-				System.out.print(room.getRoomDescription() + " | ");
-				System.out.print(room.getBookingStatus() + "\t" + "\t" + " | ");
-				System.out.print(room.getNumAvailable() + "\t" + "\t" + " | ");
-				System.out.println();
+				System.out.println(room.getNumAvailable() + " rooms of type " + room.getRoomType() + " are available for Rs" + room.getRoomPrice() + " per night.");
 			}
 		} catch (RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block
