@@ -62,19 +62,16 @@ public class HotelClient {
 	
 	public static void bookRoom() throws MalformedURLException {
 		//RoomManagerImpl roomManager = null;
-		int booked = 0;
 		Scanner in = new Scanner(System.in);
-		
+		int booked = 0;
+		Hashtable<Integer, Integer> availableRooms = new Hashtable<Integer, Integer>();
 		System.out.println("Types of rooms currently available");
 		System.out.println("------------------------------------");
-		Hashtable<Integer, Integer> availableRooms = new Hashtable<Integer, Integer>();
-		
 		try {
 			Registry r = LocateRegistry.getRegistry("127.0.0.1", 1099);
 			RoomManager rm = (RoomManager) Naming.lookup("rmi://localhost:1099/BookingService");
 
 			ArrayList<Room> roomList = rm.getRooms();
-
 			for (Room room : roomList) {
 				if(room.getNumAvailable() > 0) {
 					System.out.println("TYPE " + room.getRoomType() + ": " + room.getRoomDescription());
@@ -91,6 +88,7 @@ public class HotelClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 		
 		System.out.println("------------------------------------");
 		
@@ -105,54 +103,18 @@ public class HotelClient {
 		
 		System.out.println("Enter Your Stay Duration (DAYS): ");
 		int duration = in.nextInt();
-		
-		PreparedStatement stmt1 = null;
-		PreparedStatement stmt2 = null;
-		PreparedStatement stmt3 = null;
-		Connection con = null;
-		try
-		  {
-			Class.forName("com.mysql.cj.jdbc.Driver");  
-    		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel_booking","root","1234567890");  
-    		
-    		con.setAutoCommit(false);
-		    stmt1 = con.prepareStatement("UPDATE room SET numAvailable = ? - 1 WHERE roomType = ?");
-		    
-		    String registerGuest = "insert into guest(firstName, lastName, roomId,stayDuration) values(?, ?, ?, ?)";
-		    stmt2 = con.prepareStatement(registerGuest);
+		System.out.println("CHOICE:" + choice);
+		System.out.println("ROOM:" + availableRooms.get(choice));
+		try {
+			Registry r = LocateRegistry.getRegistry("127.0.0.1", 1099);
+			RoomManager rm = (RoomManager) Naming.lookup("rmi://localhost:1099/BookingService");
 
-
-		    // Set Prepared Statement Parameters [RoomType] & prepare for batch update
-		    int dbRoomsAvailableValue = availableRooms.get(choice);
-		    
-		    stmt1.setInt(1, dbRoomsAvailableValue--);
-		    stmt1.setInt(2, choice);
-
-		    stmt2.setString(1, fname);
-		    stmt2.setString(2, lname);
-		    stmt2.setInt(3, choice++);
-		    stmt2.setInt(4, duration);
-		   
-		    stmt1.execute();
-		    stmt2.execute();
-		    con.commit();
-		    
-		    System.out.println("Room successfully booked!");
-        } catch (ClassNotFoundException e) {
-            try {
-                con.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-            e.printStackTrace();
-        } catch (SQLException e) {
-            try {
-                con.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-            e.printStackTrace();
-        }
+			rm.bookRoom(availableRooms, choice, fname, lname, duration);
+			System.out.println("Room successfully booked!");
+		} catch (RemoteException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		System.out.print("Go back? [Y/n]: ");

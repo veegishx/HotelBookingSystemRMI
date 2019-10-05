@@ -96,7 +96,7 @@ public class HotelServer {
             }
             e.printStackTrace();
         } finally{
-            try{
+            try{ 
                 if(stmt != null) stmt.close();
                 if(con != null) con.close();
             } catch(Exception ex){}
